@@ -1,0 +1,32 @@
+from flask import Flask, request, jsonify
+from emotion_detection import emotion_detector
+
+
+#make sure to define app
+app = Flask(__name__)
+
+
+#making sure that the flask decorator for the app is calling the funtoin /emotionDetector
+@app.route("/emotionDetector", methods=["GET"])
+def detect_emotion():
+    text_to_analyze = request.args.get("textToAnalyze")
+    result = emotion_detector(text_to_analyze)  
+    #get results form emotion_detection
+    anger = result["anger"]
+    disgust = result["disgust"]
+    fear = result["fear"]
+    joy = result["joy"]
+    sadness = result["sadness"]
+    dominant_emotion = result["dominant_emotion"]
+    #now to complete the proper format and return the output
+
+
+    output = (f"For the given statement, the system response is 'anger' : {anger}, 'disgust' : {disgust}, 'fear' : {fear}, 'joy' : {joy}, and 'sadness' : {sadness}. The dominant emotion is {dominant_emotion}")
+    return output
+
+
+if __name__ == "__main__":
+    #in order to view this on the browser, make sure host is 0.0.0.0 for external access on this browser
+    app.run()
+
+
