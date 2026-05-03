@@ -22,7 +22,7 @@ def emotion_detector(text_to_analyze):
     #text
 
     #now to manage blank entries from users which should be a 400 error code?
-    if response.status_code = 400:
+    if response.status_code == 400:
         return {
             "anger": None,
             "disgust" : None,
